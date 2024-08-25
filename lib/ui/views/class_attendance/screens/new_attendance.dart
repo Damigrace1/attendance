@@ -72,7 +72,8 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
               ),
               Text(
                 'anifowope ayodele'.toUpperCase(),
-                style: AppTextstyle.profileTextStyleLarge,
+                style: AppTextstyle.profileTextStyleLarge
+                    .copyWith(color: AppPallete.backgroundColor),
               ),
               const Spacer(),
               // Align(
@@ -105,161 +106,185 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
     );
   }
 
-  Widget staffWidget(BuildContext context) => Expanded(
-        child: ListView(
-          children: [
-            const CustomTextfield(
-              hintText: 'ENTER COURSE TITLE',
-            ),
-            const CustomTextfield(
-              hintText: 'ENTER COURSE CODE',
-            ),
-            const CustomTextfield(
-              hintText: 'ENTER LECTURE TITLE',
-            ),
-            const CustomTextfield(
-              hintText: 'ENTER LECTURE VENUE',
-            ),
-            DecorContainerRow(
+  Widget staffWidget(BuildContext context) =>
+      LayoutBuilder(builder: (context, constraints) {
+        return SizedBox(
+          width: constraints.maxWidth,
+          height: constraints.maxHeight,
+          //Listview will for the containers to take up all width. Do not use.
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Text(
-                  'DATE',
-                  style: AppTextstyle.bodyTextStyle,
+                const CustomTextfield(
+                  hintText: 'ENTER COURSE TITLE',
                 ),
-                horizontalSpaceMedium,
-                Text(
-                  'DD',
-                  style: AppTextstyle.bodyTextStyle,
+                const CustomTextfield(
+                  hintText: 'ENTER COURSE CODE',
                 ),
-                horizontalSpaceSmall,
-                Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: AppDecoration.boxDecor,
+                const CustomTextfield(
+                  hintText: 'ENTER LECTURE TITLE',
                 ),
-                horizontalSpaceSmall,
-                Text(
-                  'MM',
-                  style: AppTextstyle.bodyTextStyle,
+                const CustomTextfield(
+                  hintText: 'ENTER LECTURE VENUE',
                 ),
-                horizontalSpaceSmall,
-                Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: AppDecoration.boxDecor,
+                DecorContainerRow(
+                  children: [
+                    Text(
+                      'DATE',
+                      style: AppTextstyle.bodyTextStyle,
+                    ),
+                    horizontalSpaceMedium,
+                    Text(
+                      'DD',
+                      style: AppTextstyle.bodyTextStyle,
+                    ),
+                    horizontalSpaceSmall,
+                    Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: AppDecoration.boxDecor,
+                    ),
+                    horizontalSpaceSmall,
+                    Text(
+                      'MM',
+                      style: AppTextstyle.bodyTextStyle,
+                    ),
+                    horizontalSpaceSmall,
+                    Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: AppDecoration.boxDecor,
+                    ),
+                    horizontalSpaceSmall,
+                    Text(
+                      'YYYY',
+                      style: AppTextstyle.bodyTextStyle,
+                    ),
+                    horizontalSpaceSmall,
+                    Container(
+                      width: 60.w,
+                      height: 30.h,
+                      decoration: AppDecoration.boxDecor,
+                    ),
+                  ],
                 ),
-                horizontalSpaceSmall,
-                Text(
-                  'YYYY',
-                  style: AppTextstyle.bodyTextStyle,
+                verticalSpaceSmall,
+                DecorContainerRow(
+                  children: [
+                    Text(
+                      'TIME',
+                      style: AppTextstyle.bodyTextStyle,
+                    ),
+                    horizontalSpaceLarge,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 80.w,
+                      height: 30.h,
+                      decoration: AppDecoration.boxDecor,
+                      child: Text(
+                        '13:35',
+                        style: AppTextstyle.bodyTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
-                horizontalSpaceSmall,
-                Container(
-                  width: 60.w,
-                  height: 30.h,
-                  decoration: AppDecoration.boxDecor,
+                verticalSpaceSmall,
+                GeneralButton(
+                  text: 'GENERATE QR CODE',
+                  buttonColor: AppPallete.darkPurpleColor,
+                  width: double.infinity,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MarkAttendanceQr.route(
+                          text: text,
+                          color: color,
+                        ));
+                  },
                 ),
+                verticalSpace(300.h)
               ],
             ),
-            verticalSpaceSmall,
-            DecorContainerRow(
-              children: [
-                Text(
-                  'TIME',
-                  style: AppTextstyle.bodyTextStyle,
-                ),
-                horizontalSpaceLarge,
-                Container(
-                  alignment: Alignment.center,
-                  width: 80.w,
-                  height: 30.h,
-                  decoration: AppDecoration.boxDecor,
-                  child: Text(
-                    '13:35',
-                    style: AppTextstyle.bodyTextStyle,
+          ),
+        );
+      });
+  Widget studentWidget(BuildContext context) =>
+      LayoutBuilder(builder: (context, constraints) {
+        return SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            //Listview will for the containers to take up all width. Do not use.
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'scan qr code to mark attendance'.toUpperCase(),
+                        style: AppTextstyle.bodyTextStyleMedium,
+                      ),
+                      Container(
+                        height: 205.h,
+                        width: 205.w,
+                        decoration: AppDecoration.greyDecor,
+                      ),
+                      verticalSpaceSmall,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MarkAttendanceQr.route(
+                                text: text,
+                                color: color,
+                              ));
+                        },
+                        child: Container(
+                          width: 200.w,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 20),
+                          decoration: AppDecoration.greyDecor
+                              .copyWith(color: AppPallete.primaryColor),
+                          child: Text(
+                            'scan qr code'.toUpperCase(),
+                            style: AppTextstyle.buttonTextStyle,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'csc 101'.toUpperCase(),
+                            style: AppTextstyle.bodyTextStyleSmall,
+                          ),
+                          Text(
+                            'dr. anifowope a.s'.toUpperCase(),
+                            style: AppTextstyle.bodyTextStyleSmall,
+                          ),
+                          Text(
+                            '02/09/2024',
+                            style: AppTextstyle.bodyTextStyleSmall,
+                          ),
+                          Text(
+                            'csc 101'.toUpperCase(),
+                            style: AppTextstyle.bodyTextStyleSmall,
+                          ),
+                          Text(
+                            '12:00pm',
+                            style: AppTextstyle.bodyTextStyleSmall,
+                          ),
+                          verticalSpaceMedium,
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            verticalSpaceSmall,
-            GeneralButton(
-              text: 'GENERATE QR CODE',
-              buttonColor: AppPallete.darkPurpleColor,
-              width: double.infinity,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MarkAttendanceQr.route(
-                      text: text,
-                      color: color,
-                    ));
-              },
-            ),
-          ],
-        ),
-      );
-  Widget studentWidget(BuildContext context) => Column(
-        children: [
-          const Row(),
-          Text(
-            'scan qr code to mark attendance'.toUpperCase(),
-            style: AppTextstyle.bodyTextStyleMedium,
-          ),
-          Container(
-            height: 205.h,
-            width: 205.w,
-            decoration: AppDecoration.greyDecor,
-          ),
-          verticalSpaceSmall,
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MarkAttendanceQr.route(
-                    text: text,
-                    color: color,
-                  ));
-            },
-            child: Container(
-              width: 200.w,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-              decoration: AppDecoration.greyDecor
-                  .copyWith(color: AppPallete.primaryColor),
-              child: Text(
-                'scan qr code'.toUpperCase(),
-                style: AppTextstyle.buttonTextStyle,
+                ],
               ),
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'csc 101'.toUpperCase(),
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              Text(
-                'dr. anifowope a.s'.toUpperCase(),
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              Text(
-                '02/09/2024',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              Text(
-                'csc 101'.toUpperCase(),
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              Text(
-                '12:00pm',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              verticalSpaceMedium,
-            ],
-          ),
-        ],
-      );
+            ));
+      });
 
   @override
   ClassAttendanceViewModel viewModelBuilder(

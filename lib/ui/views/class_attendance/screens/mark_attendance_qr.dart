@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_attendance_system/core/app_image.dart';
 import 'package:qr_attendance_system/core/theme/app_pallete.dart';
 import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
@@ -138,7 +139,7 @@ class MarkAttendanceQr extends StackedView<ClassAttendanceViewModel> {
           Image.asset(AppImage.qrImage),
           verticalSpaceMedium,
           TextContainer(
-            width: 280,
+            width: 280.w,
             textColor: AppPallete.black,
             color: AppPallete.transparent,
             border: Border.all(color: AppPallete.black),

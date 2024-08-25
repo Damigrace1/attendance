@@ -20,6 +20,7 @@ class CustomTextfield extends StatelessWidget {
         TextField(
           controller: controller,
           textAlign: TextAlign.center,
+          style: AppTextstyle.textFieldTextStyle,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
@@ -28,7 +29,7 @@ class CustomTextfield extends StatelessWidget {
             filled: true,
             fillColor: AppPallete.lightGrey,
             hintText: hintText?.toUpperCase(),
-            hintStyle: AppTextstyle.textFieldTextStyle,
+            hintStyle: AppTextstyle.textFieldHintTextStyle,
           ),
         ),
         verticalSpaceSmall

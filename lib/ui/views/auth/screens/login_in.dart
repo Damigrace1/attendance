@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
-import 'package:qr_attendance_system/ui/views/auth/screens/sign_in.dart';
+import 'package:qr_attendance_system/ui/views/auth/screens/sign_up.dart';
 import 'package:qr_attendance_system/ui/views/class_attendance/screens/class_attendance_view.dart';
 import 'package:qr_attendance_system/ui/views/profile/screens/profile_view.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/custom_textfield.dart';
@@ -100,7 +100,7 @@ class LoginIn extends StackedView<AuthViewModel> {
                   TextSpan(
                     text: 'SIGN IN',
                     style: AppTextstyle.bodyTextStyleMedium
-                        .copyWith(color: buttonColor),
+                        .copyWith(color: AppPallete.secondaryColor),
                   ),
                 ],
               ),

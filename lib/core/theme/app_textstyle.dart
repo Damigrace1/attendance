@@ -8,8 +8,16 @@ class AppTextstyle {
   AppTextstyle._();
 
   // static TextStyle get profileTextStyle => GoogleFonts.alumniSans();
-  static TextStyle get textFieldTextStyle =>
-      GoogleFonts.alumniSans(fontSize: 26.sp, color: AppPallete.black);
+  static TextStyle get textFieldHintTextStyle => GoogleFonts.alumniSans(
+        fontSize: 32.sp,
+        color: AppPallete.black.withOpacity(0.4),
+        fontWeight: FontWeight.w700,
+      );
+  static TextStyle get textFieldTextStyle => GoogleFonts.alumniSans(
+        fontSize: 32.sp,
+        color: AppPallete.black,
+        fontWeight: FontWeight.w700,
+      );
   static TextStyle get labelTextStyleSmall =>
       GoogleFonts.alumniSans(fontSize: 18.sp, fontWeight: FontWeight.w700);
   static TextStyle get labelTextStyleLarge => GoogleFonts.alumniSans(
@@ -24,6 +32,8 @@ class AppTextstyle {
       );
   static TextStyle get bodyTextStyle =>
       GoogleFonts.alumniSans(fontSize: 26.sp, fontWeight: FontWeight.w700);
+  static TextStyle get bodyTextStyleSmall =>
+      GoogleFonts.alumniSans(fontSize: 20.sp, fontWeight: FontWeight.w700);
   static TextStyle get splashTextStyle => GoogleFonts.alumniSans(
         fontSize: 96.sp,
         fontWeight: FontWeight.w600,
