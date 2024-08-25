@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_attendance_system/core/app_image.dart';
 import 'package:qr_attendance_system/core/theme/app_pallete.dart';
 import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
 import 'package:qr_attendance_system/ui/common/ui_helpers.dart';
+import 'package:qr_attendance_system/ui/views/class_attendance/screens/class_attendance_view.dart';
+import 'package:qr_attendance_system/ui/views/class_attendance/screens/mark_attendance_qr.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/basescafold.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,12 +13,18 @@ import '../profile_viewmodel.dart';
 import '../widgets/profile_tile.dart';
 
 class ProfileView extends StackedView<ProfileViewModel> {
-  static route({required Color color}) => MaterialPageRoute(
-        builder: (context) => ProfileView(color: color),
+  static route({required String text, required Color color}) =>
+      MaterialPageRoute(
+        builder: (context) => ProfileView(
+          color: color,
+          text: text,
+        ),
       );
+  final String text;
   final Color color;
   const ProfileView({
     Key? key,
+    required this.text,
     required this.color,
   }) : super(key: key);
 
@@ -32,26 +41,45 @@ class ProfileView extends StackedView<ProfileViewModel> {
       padding: EdgeInsets.zero,
       appBarchild: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 40,
-                child: Image.asset(AppImage.avatarImage),
+              GestureDetector(
+                onTap: () {
+                  if (text == 'staff') {
+                    Navigator.push(
+                        context,
+                        MarkAttendanceQr.route(
+                          text: text,
+                          color: color,
+                        ));
+                  } else {
+                    Navigator.push(
+                        context,
+                        ClassAttendanceView.route(
+                          text: text,
+                          color: color,
+                        ));
+                  }
+                },
+                child: CircleAvatar(
+                  radius: 40,
+                  child: Image.asset(AppImage.avatarImage),
+                ),
               ),
               Text(
                 'anifowope ayodele'.toUpperCase(),
-                style: AppTextstyle.labelTextStyleLarge,
+                style: AppTextstyle.profileTextStyleLarge,
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'welcome onboard!'.toUpperCase(),
-                  style: AppTextstyle.labelTextStyleLarge,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     'welcome onboard!'.toUpperCase(),
+              //     style: AppTextstyle.labelTextStyleLarge,
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_attendance_system/core/app_image.dart';
 import 'package:qr_attendance_system/core/theme/app_decoration.dart';
 import 'package:qr_attendance_system/core/theme/app_pallete.dart';
@@ -6,6 +7,7 @@ import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
 import 'package:qr_attendance_system/ui/common/ui_helpers.dart';
 import 'package:qr_attendance_system/ui/views/class_attendance/screens/mark_attendance_qr.dart';
 import 'package:qr_attendance_system/ui/views/class_attendance/widgets/decorated_container.dart';
+import 'package:qr_attendance_system/ui/views/profile/screens/profile_view.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/basescafold.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/custom_textfield.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/general_button.dart';
@@ -45,22 +47,41 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 40,
-                child: Image.asset(AppImage.avatarImage),
+              GestureDetector(
+                onTap: () {
+                  if (text == 'staff') {
+                    Navigator.push(
+                        context,
+                        ProfileView.route(
+                          text: text,
+                          color: color,
+                        ));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MarkAttendanceQr.route(
+                          text: text,
+                          color: color,
+                        ));
+                  }
+                },
+                child: CircleAvatar(
+                  radius: 40,
+                  child: Image.asset(AppImage.avatarImage),
+                ),
               ),
               Text(
                 'anifowope ayodele'.toUpperCase(),
-                style: AppTextstyle.labelTextStyleLarge,
+                style: AppTextstyle.profileTextStyleLarge,
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'welcome onboard!'.toUpperCase(),
-                  style: AppTextstyle.labelTextStyleLarge,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     'welcome onboard!'.toUpperCase(),
+              //     style: AppTextstyle.labelTextStyleLarge,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -84,96 +105,98 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
     );
   }
 
-  Widget staffWidget(BuildContext context) => Column(
-        children: [
-          const CustomTextfield(
-            hintText: 'ENTER COURSE TITLE',
-          ),
-          const CustomTextfield(
-            hintText: 'ENTER COURSE CODE',
-          ),
-          const CustomTextfield(
-            hintText: 'ENTER LECTURE TITLE',
-          ),
-          const CustomTextfield(
-            hintText: 'ENTER LECTURE VENUE',
-          ),
-          DecorContainerRow(
-            children: [
-              Text(
-                'DATE',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              horizontalSpaceMedium,
-              Text(
-                'DD',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              horizontalSpaceSmall,
-              Container(
-                width: 30,
-                height: 30,
-                decoration: AppDecoration.boxDecor,
-              ),
-              horizontalSpaceSmall,
-              Text(
-                'MM',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              horizontalSpaceSmall,
-              Container(
-                width: 30,
-                height: 30,
-                decoration: AppDecoration.boxDecor,
-              ),
-              horizontalSpaceSmall,
-              Text(
-                'YYYY',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              horizontalSpaceSmall,
-              Container(
-                width: 60,
-                height: 30,
-                decoration: AppDecoration.boxDecor,
-              ),
-            ],
-          ),
-          verticalSpaceSmall,
-          DecorContainerRow(
-            children: [
-              Text(
-                'TIME',
-                style: AppTextstyle.bodyTextStyle,
-              ),
-              horizontalSpaceLarge,
-              Container(
-                alignment: Alignment.center,
-                width: 80,
-                height: 30,
-                decoration: AppDecoration.boxDecor,
-                child: Text(
-                  '13:35',
+  Widget staffWidget(BuildContext context) => Expanded(
+        child: ListView(
+          children: [
+            const CustomTextfield(
+              hintText: 'ENTER COURSE TITLE',
+            ),
+            const CustomTextfield(
+              hintText: 'ENTER COURSE CODE',
+            ),
+            const CustomTextfield(
+              hintText: 'ENTER LECTURE TITLE',
+            ),
+            const CustomTextfield(
+              hintText: 'ENTER LECTURE VENUE',
+            ),
+            DecorContainerRow(
+              children: [
+                Text(
+                  'DATE',
                   style: AppTextstyle.bodyTextStyle,
                 ),
-              ),
-            ],
-          ),
-          verticalSpaceSmall,
-          GeneralButton(
-            text: 'GENERATE QR CODE',
-            buttonColor: AppPallete.darkPurpleColor,
-            width: double.infinity,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MarkAttendanceQr.route(
-                    text: text,
-                    color: color,
-                  ));
-            },
-          ),
-        ],
+                horizontalSpaceMedium,
+                Text(
+                  'DD',
+                  style: AppTextstyle.bodyTextStyle,
+                ),
+                horizontalSpaceSmall,
+                Container(
+                  width: 30.w,
+                  height: 30.h,
+                  decoration: AppDecoration.boxDecor,
+                ),
+                horizontalSpaceSmall,
+                Text(
+                  'MM',
+                  style: AppTextstyle.bodyTextStyle,
+                ),
+                horizontalSpaceSmall,
+                Container(
+                  width: 30.w,
+                  height: 30.h,
+                  decoration: AppDecoration.boxDecor,
+                ),
+                horizontalSpaceSmall,
+                Text(
+                  'YYYY',
+                  style: AppTextstyle.bodyTextStyle,
+                ),
+                horizontalSpaceSmall,
+                Container(
+                  width: 60.w,
+                  height: 30.h,
+                  decoration: AppDecoration.boxDecor,
+                ),
+              ],
+            ),
+            verticalSpaceSmall,
+            DecorContainerRow(
+              children: [
+                Text(
+                  'TIME',
+                  style: AppTextstyle.bodyTextStyle,
+                ),
+                horizontalSpaceLarge,
+                Container(
+                  alignment: Alignment.center,
+                  width: 80.w,
+                  height: 30.h,
+                  decoration: AppDecoration.boxDecor,
+                  child: Text(
+                    '13:35',
+                    style: AppTextstyle.bodyTextStyle,
+                  ),
+                ),
+              ],
+            ),
+            verticalSpaceSmall,
+            GeneralButton(
+              text: 'GENERATE QR CODE',
+              buttonColor: AppPallete.darkPurpleColor,
+              width: double.infinity,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MarkAttendanceQr.route(
+                      text: text,
+                      color: color,
+                    ));
+              },
+            ),
+          ],
+        ),
       );
   Widget studentWidget(BuildContext context) => Column(
         children: [
@@ -183,8 +206,8 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
             style: AppTextstyle.bodyTextStyleMedium,
           ),
           Container(
-            height: 205,
-            width: 205,
+            height: 205.h,
+            width: 205.w,
             decoration: AppDecoration.greyDecor,
           ),
           verticalSpaceSmall,
@@ -198,7 +221,7 @@ class NewAttendance extends StackedView<ClassAttendanceViewModel> {
                   ));
             },
             child: Container(
-              width: 200,
+              width: 200.w,
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
               decoration: AppDecoration.greyDecor

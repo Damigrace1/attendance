@@ -40,7 +40,7 @@ class StartupView extends StackedView<StartupViewModel> {
                             style: AppTextstyle.splashTextStyle
                                 .copyWith(color: AppPallete.primaryColor)),
                         TextSpan(
-                            text: 'M',
+                            text: 'S',
                             style: AppTextstyle.splashTextStyle
                                 .copyWith(color: AppPallete.darkPurpleColor)),
                       ]),

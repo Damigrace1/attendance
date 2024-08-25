@@ -44,22 +44,32 @@ class ClassAttendanceView extends StackedView<ClassAttendanceViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 40,
-                child: Image.asset(AppImage.avatarImage),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      NewAttendance.route(
+                        text: text,
+                        color: color,
+                      ));
+                },
+                child: CircleAvatar(
+                  radius: 40,
+                  child: Image.asset(AppImage.avatarImage),
+                ),
               ),
               Text(
                 'anifowope ayodele'.toUpperCase(),
-                style: AppTextstyle.labelTextStyleLarge,
+                style: AppTextstyle.profileTextStyleLarge,
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'welcome onboard!'.toUpperCase(),
-                  style: AppTextstyle.labelTextStyleLarge,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     'welcome onboard!'.toUpperCase(),
+              //     style: AppTextstyle.labelTextStyleLarge,
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -43,11 +43,14 @@ class MarkAttendanceQr extends StackedView<ClassAttendanceViewModel> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      ProfileView.route(
-                        color: color,
-                      ));
+                  if (text != 'staff') {
+                    Navigator.push(
+                        context,
+                        ProfileView.route(
+                          text: text,
+                          color: color,
+                        ));
+                  }
                 },
                 child: CircleAvatar(
                   radius: 40,
@@ -56,16 +59,16 @@ class MarkAttendanceQr extends StackedView<ClassAttendanceViewModel> {
               ),
               Text(
                 'anifowope ayodele'.toUpperCase(),
-                style: AppTextstyle.labelTextStyleLarge,
+                style: AppTextstyle.profileTextStyleLarge,
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'welcome onboard!'.toUpperCase(),
-                  style: AppTextstyle.labelTextStyleLarge,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     'welcome onboard!'.toUpperCase(),
+              //     style: AppTextstyle.labelTextStyleLarge,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -86,42 +89,46 @@ class MarkAttendanceQr extends StackedView<ClassAttendanceViewModel> {
     );
   }
 
-  Widget get studentWidget => Column(
-        children: [
-          Text(
-            'csc 101'.toUpperCase(),
-            style: AppTextstyle.bodyTextStyle,
-          ),
-          Text(
-            'dr. anifowope a.s'.toUpperCase(),
-            style: AppTextstyle.bodyTextStyle,
-          ),
-          Text(
-            '02/09/2024',
-            style: AppTextstyle.bodyTextStyle,
-          ),
-          Text(
-            'csc 101'.toUpperCase(),
-            style: AppTextstyle.bodyTextStyle,
-          ),
-          Text(
-            '12:00pm',
-            style: AppTextstyle.bodyTextStyle,
-          ),
-          verticalSpaceMedium,
-          Row(
-            children: [
-              const Icon(
-                Icons.check_circle,
-                color: AppPallete.primaryColor,
-              ),
-              Text(
-                'attendance sucessfully marked'.toUpperCase(),
-                style: AppTextstyle.bodyTextStyle,
-              ),
-            ],
-          )
-        ],
+  Widget get studentWidget => Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'csc 101'.toUpperCase(),
+              style: AppTextstyle.bodyTextStyle,
+            ),
+            Text(
+              'dr. anifowope a.s'.toUpperCase(),
+              style: AppTextstyle.bodyTextStyle,
+            ),
+            Text(
+              '02/09/2024',
+              style: AppTextstyle.bodyTextStyle,
+            ),
+            Text(
+              'csc 101'.toUpperCase(),
+              style: AppTextstyle.bodyTextStyle,
+            ),
+            Text(
+              '12:00pm',
+              style: AppTextstyle.bodyTextStyle,
+            ),
+            verticalSpaceMedium,
+            Row(
+              children: [
+                const Icon(
+                  Icons.check_circle,
+                  color: AppPallete.primaryColor,
+                ),
+                Text(
+                  'attendance sucessfully marked'.toUpperCase(),
+                  style: AppTextstyle.bodyTextStyle,
+                ),
+              ],
+            )
+          ],
+        ),
       );
 
   Widget get staffWidget => Column(

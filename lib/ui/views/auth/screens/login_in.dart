@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
 import 'package:qr_attendance_system/ui/views/auth/screens/sign_in.dart';
+import 'package:qr_attendance_system/ui/views/class_attendance/screens/class_attendance_view.dart';
+import 'package:qr_attendance_system/ui/views/profile/screens/profile_view.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/custom_textfield.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/text_container.dart';
 import 'package:stacked/stacked.dart';
@@ -47,7 +50,7 @@ class LoginIn extends StackedView<AuthViewModel> {
           // Row forces the container to take full width
           const Row(),
           TextContainer(
-            width: 280,
+            width: 280.w,
             color: AppPallete.darkPurpleColor,
             text: '$text sign in',
           ),
@@ -62,7 +65,23 @@ class LoginIn extends StackedView<AuthViewModel> {
           GeneralButton(
             text: 'sign in',
             buttonColor: AppPallete.primaryColor,
-            onTap: () {},
+            onTap: () {
+              if (text == 'staff') {
+                Navigator.push(
+                    context,
+                    ClassAttendanceView.route(
+                      text: text,
+                      color: color,
+                    ));
+              } else {
+                Navigator.push(
+                    context,
+                    ProfileView.route(
+                      text: text,
+                      color: color,
+                    ));
+              }
+            },
           ),
           const Spacer(),
           GestureDetector(
