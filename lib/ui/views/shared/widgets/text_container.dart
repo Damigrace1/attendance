@@ -25,7 +25,7 @@ class TextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 50.h,
+     // height: height ?? 50.h,
       width: width ?? 230.w,
       alignment: Alignment.center,
       decoration:

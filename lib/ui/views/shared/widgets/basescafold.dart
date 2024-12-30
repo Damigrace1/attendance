@@ -9,6 +9,7 @@ class BaseScaffold extends StatelessWidget {
   final Color curvedContainerColor;
   final Widget appBarchild;
   final Widget? bodychild;
+  final bool resize;
   final EdgeInsetsGeometry? padding;
   const BaseScaffold(
       {super.key,
@@ -18,12 +19,13 @@ class BaseScaffold extends StatelessWidget {
       this.curvedContainerColor = AppPallete.backgroundColor,
       this.appBarchild = const SizedBox.shrink(),
       this.bodychild,
+        this.resize = true,
       this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: resize,
       backgroundColor: backgroundColor,
       body: Column(
         children: [

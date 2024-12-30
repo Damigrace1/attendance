@@ -1,15 +1,25 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:qr_attendance_system/core/app_image.dart';
 import 'package:qr_attendance_system/core/theme/app_pallete.dart';
 import 'package:qr_attendance_system/core/theme/app_textstyle.dart';
+import 'package:qr_attendance_system/services/firebase_services.dart';
+import 'package:qr_attendance_system/models/auth/user.dart';
+import 'package:qr_attendance_system/ui/views/profile/screens/profile_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:qr_attendance_system/ui/common/ui_helpers.dart';
 
+import '../class_attendance/screens/class_attendance_view.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
   const StartupView({Key? key}) : super(key: key);
+
+  static late StartupViewModel md;
+
 
   @override
   Widget builder(
@@ -17,6 +27,7 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
+
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         return Container(
@@ -80,10 +91,14 @@ class StartupView extends StackedView<StartupViewModel> {
   @override
   StartupViewModel viewModelBuilder(
     BuildContext context,
-  ) =>
-      StartupViewModel();
+  ) {
+    StartupViewModel.loadUser(context);
+    return StartupViewModel();
+  }
+
 
   @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+  void onViewModelReady(StartupViewModel viewModel){
+    md = viewModel;
+  }
 }

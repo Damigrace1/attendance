@@ -14,6 +14,8 @@ import 'package:qr_attendance_system/ui/views/shared/widgets/basescafold.dart';
 import 'package:qr_attendance_system/ui/views/shared/widgets/general_button.dart';
 import 'package:qr_attendance_system/ui/views/auth/provider/auth_viewmodel.dart';
 
+import '../../../common/validators.dart';
+
 class LoginIn extends StackedView<AuthViewModel> {
   static route(
           {required String text,
@@ -29,6 +31,10 @@ class LoginIn extends StackedView<AuthViewModel> {
   final String text;
   final Color color;
   final Color buttonColor;
+
+  static final TextEditingController passwordController = TextEditingController();
+  static final TextEditingController emailController = TextEditingController();
+
   const LoginIn({
     Key? key,
     required this.text,
@@ -42,72 +48,76 @@ class LoginIn extends StackedView<AuthViewModel> {
     AuthViewModel viewModel,
     Widget? child,
   ) {
+     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return BaseScaffold(
       backgroundColor: color,
       bodyColor: AppPallete.backgroundColor,
-      bodychild: Column(
-        children: [
-          // Row forces the container to take full width
-          const Row(),
-          TextContainer(
-            width: 280.w,
-            color: AppPallete.darkPurpleColor,
-            text: '$text sign in',
-          ),
-          verticalSpaceLarge,
-          const CustomTextfield(
-            hintText: 'Matric no',
-          ),
-          const CustomTextfield(
-            hintText: 'password',
-          ),
-          verticalSpaceSmall,
-          GeneralButton(
-            text: 'sign in',
-            buttonColor: AppPallete.primaryColor,
-            onTap: () {
-              if (text == 'staff') {
-                Navigator.push(
-                    context,
-                    ClassAttendanceView.route(
-                      text: text,
-                      color: color,
-                    ));
-              } else {
-                Navigator.push(
-                    context,
-                    ProfileView.route(
-                      text: text,
-                      color: color,
-                    ));
-              }
-            },
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () => Navigator.push(
-                context,
-                SignIn.route(
-                  text: text,
-                  color: color,
-                  buttonColor: buttonColor,
-                )),
-            child: Text.rich(
-              TextSpan(
-                text: 'Don’t have an account? '.toUpperCase(),
-                style: AppTextstyle.bodyTextStyleMedium,
-                children: [
-                  TextSpan(
-                    text: 'SIGN IN',
-                    style: AppTextstyle.bodyTextStyleMedium
-                        .copyWith(color: AppPallete.secondaryColor),
-                  ),
-                ],
+      bodychild: IgnorePointer(
+        ignoring: viewModel.isBusy,
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              // Row forces the container to take full width
+              const Row(),
+              TextContainer(
+                width: 280.w,
+                color: AppPallete.darkPurpleColor,
+                text: '$text sign in',
               ),
-            ),
+              verticalSpaceLarge,
+               CustomTextfield(
+                hintText: 'Email',
+                 validator: (v) => Validator.validateEmpty(v),
+                controller: emailController,
+              ),
+               CustomTextfield(
+                 autoCapitalize: false,
+                hintText: 'password',
+                 validator: (v) => Validator.validatePassword(v),
+                 controller: passwordController,
+              ),
+              verticalSpaceSmall,
+              GeneralButton(
+                text: 'sign in',
+                busy: viewModel.isBusy,
+                buttonColor: AppPallete.primaryColor,
+                onTap: () {
+                  if(!formKey.currentState!.validate()){
+                    return;
+                  }
+                 viewModel.signInUser(context, email: emailController.text
+                     .toLowerCase(), pw:
+                 passwordController.text.toLowerCase());
+                },
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    SignIn.route(
+                      text: text,
+                      color: color,
+                      buttonColor: buttonColor,
+                    )),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Don’t have an account? '.toUpperCase(),
+                    style: AppTextstyle.bodyTextStyleMedium,
+                    children: [
+                      TextSpan(
+                        text: 'SIGN UP',
+                        style: AppTextstyle.bodyTextStyleMedium
+                            .copyWith(color: AppPallete.secondaryColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              verticalSpaceMedium,
+            ],
           ),
-          verticalSpaceMedium,
-        ],
+        ),
       ),
     );
   }

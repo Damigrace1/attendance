@@ -28,7 +28,7 @@ class AppTextstyle {
   static TextStyle get profileTextStyleLarge => GoogleFonts.alumniSans(
         fontSize: 26.sp,
         fontWeight: FontWeight.w700,
-        color: AppPallete.black,
+        color: Colors.white,
       );
   static TextStyle get bodyTextStyle =>
       GoogleFonts.alumniSans(fontSize: 26.sp, fontWeight: FontWeight.w700);

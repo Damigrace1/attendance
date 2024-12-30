@@ -28,23 +28,25 @@ class AuthView extends StackedView<AuthViewModel> {
           GeneralButton(
             text: 'student',
             buttonColor: AppPallete.darkPurpleColor,
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.pushAndRemoveUntil(
                 context,
                 LoginIn.route(
                     text: 'Student',
                     color: AppPallete.secondaryColor,
-                    buttonColor: AppPallete.primaryColor)),
+                    buttonColor: AppPallete.primaryColor),
+                    (Route<dynamic> r)=>false),
           ),
           verticalSpaceMedium,
           GeneralButton(
             text: 'staff',
             buttonColor: AppPallete.primaryColor,
-            onTap: () => Navigator.push(
+            onTap: () => Navigator.pushAndRemoveUntil(
                 context,
                 LoginIn.route(
                     text: 'staff',
                     color: AppPallete.primaryColor,
-                    buttonColor: AppPallete.darkPurpleColor)),
+                    buttonColor: AppPallete.darkPurpleColor),
+                (Route<dynamic> r)=>false),
           ),
         ],
       ),

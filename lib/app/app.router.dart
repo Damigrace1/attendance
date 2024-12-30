@@ -9,6 +9,7 @@ import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i6;
 import 'package:flutter/material.dart';
+import 'package:qr_attendance_system/models/auth/user.dart';
 import 'package:qr_attendance_system/ui/views/auth/screens/auth_view.dart'
     as _i3;
 import 'package:qr_attendance_system/ui/views/class_attendance/screens/class_attendance_view.dart'
@@ -81,7 +82,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ClassAttendanceViewArguments>(nullOk: false);
       return _i6.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.ClassAttendanceView(
-            key: args.key, text: args.text, color: args.color),
+            key: args.key, text: args.text, color: args.color,userModel: UserModel(),),
         settings: data,
       );
     },
